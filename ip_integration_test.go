@@ -2,6 +2,7 @@ package twiliogo
 
 import (
 	"fmt"
+	"net/http"
 	"testing"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 func TestIntegrationIPMessaging(t *testing.T) {
 	CheckTestEnv(t)
 
-	client := NewIPMessagingClient(API_KEY, API_TOKEN)
+	client := NewIPMessagingClient(http.DefaultClient, API_KEY, API_TOKEN)
 
 	service, err := NewIPService(client, "integration_test", "", "", 60*time.Second, nil)
 

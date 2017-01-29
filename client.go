@@ -22,6 +22,7 @@ type Client interface {
 }
 
 type TwilioClient struct {
+	httpClient *http.Client
 	accountSid string
 	authToken  string
 	rootUrl    string
@@ -29,9 +30,9 @@ type TwilioClient struct {
 
 var _ Client = &TwilioClient{}
 
-func NewClient(accountSid, authToken string) *TwilioClient {
+func NewClient(httpClient *http.Client, accountSid, authToken string) *TwilioClient {
 	rootUrl := ROOT + "/" + VERSION + "/Accounts/" + accountSid
-	return &TwilioClient{accountSid, authToken, rootUrl}
+	return &TwilioClient{httpClient, accountSid, authToken, rootUrl}
 }
 
 func (client *TwilioClient) post(values url.Values, uri string) ([]byte, error) {
@@ -43,9 +44,7 @@ func (client *TwilioClient) post(values url.Values, uri string) ([]byte, error) 
 
 	req.SetBasicAuth(client.AccountSid(), client.AuthToken())
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	httpClient := &http.Client{}
-
-	res, err := httpClient.Do(req)
+	res, err := client.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err

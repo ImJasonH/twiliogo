@@ -1,6 +1,7 @@
 package twiliogo
 
 import (
+	"net/http"
 	"os"
 	"testing"
 )
@@ -25,7 +26,7 @@ func CheckTestEnv(t *testing.T) {
 }
 
 func TestBuildUri(t *testing.T) {
-	c := NewClient("abc", "")
+	c := NewClient(http.DefaultClient, "abc", "")
 	uri := c.buildUri("qzx")
 	if uri != ROOT+"/"+VERSION+"/Accounts/abc/qzx" {
 		t.Errorf("buildUri failed: got %s", uri)

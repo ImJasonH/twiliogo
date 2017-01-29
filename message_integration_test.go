@@ -2,13 +2,14 @@ package twiliogo
 
 import (
 	"github.com/stretchr/testify/assert"
+	"net/http"
 	"testing"
 )
 
 func TestIntegrationMessageList(t *testing.T) {
 	CheckTestEnv(t)
 
-	client := NewClient(API_KEY, API_TOKEN)
+	client := NewClient(http.DefaultClient, API_KEY, API_TOKEN)
 
 	messageList, err := GetMessageList(client)
 
@@ -22,7 +23,7 @@ func TestIntegrationSendSMS(t *testing.T) {
 	/* /Messages endpoint is currently not recognized by Test Credentials */
 	/* CheckTestEnv(t) */
 
-	/* client := NewClient(TEST_KEY, TEST_TOKEN) */
+	/* client := NewClient(http.DefaultClient, TEST_KEY, TEST_TOKEN) */
 
 	/* message, err := NewMessage(client, TEST_FROM_NUMBER, TO_NUMBER, Body("Test Message")) */
 
@@ -35,7 +36,7 @@ func TestIntegrationSendSMS(t *testing.T) {
 func TestIntegrationMessageListNextPage(t *testing.T) {
 	CheckTestEnv(t)
 
-	client := NewClient(API_KEY, API_TOKEN)
+	client := NewClient(http.DefaultClient, API_KEY, API_TOKEN)
 
 	messageList, err := GetMessageList(client)
 
@@ -51,7 +52,7 @@ func TestIntegrationMessageListNextPage(t *testing.T) {
 func TestIntegrationGetMessage(t *testing.T) {
 	CheckTestEnv(t)
 
-	client := NewClient(API_KEY, API_TOKEN)
+	client := NewClient(http.DefaultClient, API_KEY, API_TOKEN)
 
 	messageList, err := GetMessageList(client)
 
