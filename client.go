@@ -86,9 +86,7 @@ func (client *TwilioClient) get(queryParams url.Values, uri string) ([]byte, err
 	}
 
 	req.SetBasicAuth(client.AccountSid(), client.AuthToken())
-	httpClient := &http.Client{}
-
-	res, err := httpClient.Do(req)
+	res, err := client.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -123,9 +121,7 @@ func (client *TwilioClient) delete(uri string) error {
 	}
 
 	req.SetBasicAuth(client.AccountSid(), client.AuthToken())
-	httpClient := &http.Client{}
-
-	res, err := httpClient.Do(req)
+	res, err := client.httpClient.Do(req)
 
 	if err != nil {
 		return err
